@@ -1,0 +1,249 @@
+openapi: 3.0.0
+info:
+  title: health project
+  version: '1.0'
+servers:
+  - url: http://localhost:3000/api/health
+    variables: {}
+paths:
+  /users/register:
+    post:
+      tags:
+        - auth
+      summary: user register
+      operationId: userregister
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/userregisterrequest'
+
+            example:
+              name: Cristina
+              email: elisabeta_miron91@yahoo.com
+              password: elisabeta91
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    parameters: []
+  /users/login:
+    post:
+      tags:
+        - auth
+      summary: user login
+      operationId: userlogin
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/userloginrequest'
+            example:
+              email: elisabeta_miron91@yahoo.com
+              password: elisabeta91
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    parameters: []
+  /users/logout:
+    get:
+      tags:
+        - users
+      summary: user logout
+      operationId: userlogout
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    parameters: []
+  /users/daily:
+    post:
+      tags:
+        - users
+      summary: user add daily product
+      operationId: useradddailyproduct
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/useradddailyproductrequest'
+            example:
+              date: 2023-11-21
+              categories: vegetables and herbs
+              weight: 100
+              title: Vegetable mix Hortex mexico
+              calories: 56
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    parameters: []
+  /users/daily/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The product ID.
+    delete:
+      tags:
+        - users
+      summary: user delete daily product
+      operationId: useradddailyproductCopy
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    parameters: []
+  /users/calculate-calories:
+    get:
+      tags:
+        - users
+      summary: user calculate-calories
+      operationId: usercalculate-calories
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    parameters: []
+  /users/daily/day-info:
+    get:
+      tags:
+        - users
+      summary: get info for a day
+      operationId: getinfoforaday
+      parameters:
+        - name: Authorization
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    parameters: []
+  /calculate-calories:
+    get:
+      tags:
+        - public
+      summary: public calculate-calories
+      operationId: publiccalculate-calories
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    parameters: []
+  /products:
+    get:
+      tags:
+        - public
+      summary: get products
+      operationId: getproducts
+      parameters:
+        - name: query
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    parameters: []
+components:
+  schemas:
+    userregisterrequest:
+      title: userregisterrequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    userloginrequest:
+      title: userloginrequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    useradddailyproductrequest:
+      title: useradddailyproductrequest
+      required:
+        - date
+        - categories
+        - weight
+        - title
+        - calories
+      type: object
+      properties:
+        date:
+          type: string
+        categories:
+          type: string
+        weight:
+          type: integer
+        title:
+          type: string
+        calories:
+          type: integer
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: auth
+    description: ''
+  - name: users
+    description: ''
+  - name: public
+    description: ''

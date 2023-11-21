@@ -1,2 +1,0 @@
-# HEALTH-backend-project-main
- 
